@@ -6,7 +6,7 @@ const toFolder = path.join(__dirname, 'files-copy');
 const fromFolder = path.join(__dirname, 'files');
 const ERROR_ENOENT = 'ENOENT';
 
-async function copyFiles(from, to) {
+module.exports.copyFiles = async function copyFiles(from, to) {
   try {
     await removeDir(to);
     await fsPromises.mkdir(to, {
@@ -16,7 +16,7 @@ async function copyFiles(from, to) {
   } catch (err) {
     console.log('failed to create directory', err);
   }
-}
+};
 
 async function removeDir(rmFolderPath) {
   try {
@@ -97,7 +97,7 @@ async function copy(from, to) {
             }
           }
         );
-        await copyFiles(
+        await module.exports.copyFiles(
           path.join(from + '/' + file),
           path.join(to + '/' + file)
         );
@@ -110,4 +110,4 @@ async function copy(from, to) {
   }
 }
 
-copyFiles(fromFolder, toFolder);
+module.exports.copyFiles(fromFolder, toFolder);
