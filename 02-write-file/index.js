@@ -7,14 +7,17 @@ fs.writeFile(LINK, '', (err) => {
   if (err) {
     throw err;
   } else {
-    stdout.write('file was created');
+    stdout.write('The file text.txt was created, please write some text \n');
   }
 });
 
 stdin.on('data', (data) => {
+  if (data.toString().trim() === 'exit') {
+    process.exit();
+  }
   fs.appendFile(LINK, data, (err) => {
     if (err) throw err;
-    stdout.write('The information was written');
+    stdout.write('The information has been written to text.txt \n');
   });
 });
 
@@ -25,7 +28,7 @@ process.on('SIGINT', () => {
     } else {
       fs.unlink(LINK, (err) => {
         if (err) throw err;
-        stdout.write('\n\nThe file was successfully deleted');
+        stdout.write('\n\nThe file text.txt has been successfully deleted');
         process.exit();
       });
     }
