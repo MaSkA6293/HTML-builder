@@ -68,11 +68,7 @@ async function writeData(arr, pathToWrite, name) {
   }
 }
 
-module.exports.cssBundle = async function getBundle(
-  pathToStyles,
-  pathToWrite,
-  bundleName
-) {
+async function getBundle(pathToStyles, pathToWrite, bundleName) {
   try {
     const files = await getFiles(pathToStyles);
     const arr = await getArrOfData(files, pathToStyles);
@@ -81,6 +77,6 @@ module.exports.cssBundle = async function getBundle(
   } catch (err) {
     console.log('Error getting bundle', err);
   }
-};
+}
 
-module.exports.cssBundle(PATH_TO_STYLES, PATH_TO_WRITE_STYLES, 'bundle.css');
+getBundle(PATH_TO_STYLES, PATH_TO_WRITE_STYLES, 'bundle.css');
